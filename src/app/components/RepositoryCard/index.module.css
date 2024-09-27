@@ -19,3 +19,23 @@
   align-items: center;
   width: "80%",
 }
+
+.repo_name {
+  margin-left: 8px,
+}
+
+.repo_description {
+  margin-top: 12px;
+}
+
+@media (max-width: 768px) {
+  .repo_name {
+    margin-left: 8px;
+    width: 180px;
+  }
+
+  .repo_description {
+    margin-top: 12px;
+    width: 200px;
+  }
+}

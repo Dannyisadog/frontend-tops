@@ -49,13 +49,7 @@ const RepositoryCard = (
               alt={repository.name}
             />
           </div>
-          <h2
-            style={{
-              marginLeft: 8,
-            }}
-          >
-            {repository.name}
-          </h2>
+          <h2 className={styles.repo_name}>{repository.name}</h2>
         </div>
         <div
           style={{
@@ -74,7 +68,7 @@ const RepositoryCard = (
           <Image src="/star.png" width={16} height={16} priority alt="Stars" />
         </div>
       </div>
-      <p style={{ marginTop: 12, maxWidth: 375 }}>{repository.description}</p>
+      <p className={styles.repo_description}>{repository.description}</p>
     </Link>
   );
 };
