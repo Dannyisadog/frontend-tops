@@ -24,7 +24,7 @@ export default function RepositoryList(props: RepositoryListProps) {
   const lastElementRef = useCallback(
     (node: HTMLAnchorElement) => {
       if (observer.current) observer.current.disconnect();
-      if (noMore) return;
+      if (noMore || loading) return;
       observer.current = new IntersectionObserver(async (entries) => {
         if (entries[0].isIntersecting) {
           setLoading(true);
@@ -39,7 +39,7 @@ export default function RepositoryList(props: RepositoryListProps) {
       });
       if (node) observer.current.observe(node);
     },
-    [page, noMore]
+    [page, noMore, loading]
   );
 
   return (
