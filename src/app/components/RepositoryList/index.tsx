@@ -17,6 +17,7 @@ export default function RepositoryList(props: RepositoryListProps) {
   const listRef = useRef(null);
   const [page, setPage] = useState(2);
   const [noMore, setNoMore] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const observer = useRef<IntersectionObserver>();
 
@@ -26,7 +27,9 @@ export default function RepositoryList(props: RepositoryListProps) {
       if (noMore) return;
       observer.current = new IntersectionObserver(async (entries) => {
         if (entries[0].isIntersecting) {
+          setLoading(true);
           const newItems = await getRepositories(page);
+          setLoading(false);
           setItems((prevItems) => [...prevItems, ...newItems]);
           setPage((prevPage) => prevPage + 1);
           if (newItems.length < 10) {
@@ -40,18 +43,32 @@ export default function RepositoryList(props: RepositoryListProps) {
   );
 
   return (
-    <div ref={listRef} className={styles.repositories_container}>
-      {items.map((item) => (
-        <RepositoryCard
-          key={item.id}
-          repository={item}
-          ref={(node) => {
-            if (items.length === items.indexOf(item) + 1 && node !== null) {
-              lastElementRef(node);
-            }
+    <>
+      <div ref={listRef} className={styles.repositories_container}>
+        {items.map((item) => (
+          <RepositoryCard
+            key={item.id}
+            repository={item}
+            ref={(node) => {
+              if (items.length === items.indexOf(item) + 1 && node !== null) {
+                lastElementRef(node);
+              }
+            }}
+          />
+        ))}
+      </div>
+      {loading && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 36,
           }}
-        />
-      ))}
-    </div>
+        >
+          <span className={styles.loader}></span>
+        </div>
+      )}
+    </>
   );
 }
