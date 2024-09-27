@@ -26,6 +26,7 @@
 
 .repo_description {
   margin-top: 12px;
+  width: 300px;
 }
 
 @media (max-width: 768px) {
