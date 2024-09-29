@@ -3,6 +3,7 @@ import "./globals.css";
 import { Poppins } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -46,11 +47,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = process.env.GAID as string;
   return (
     <html lang="en">
       <body className={poppins.className}>{children}</body>
       <Analytics />
       <SpeedInsights />
+      <GoogleAnalytics gaId={gaId} />
     </html>
   );
 }
