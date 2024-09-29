@@ -3,6 +3,7 @@ import "./globals.css";
 import { Poppins } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -13,6 +14,32 @@ export const metadata: Metadata = {
   title: "Frontend Tops",
   description:
     "Frontend Tops is a list of the top frontend repositories on GitHub.",
+  applicationName: "Frontend Tops",
+  authors: [
+    {
+      name: "Danny Chen",
+      url: "https://github.com/Dannyisadog/",
+    },
+  ],
+  generator: "Next.js",
+  keywords: ["frontend", "react", "vue", "angular", "javascript", "typescript"],
+  openGraph: {
+    type: "website",
+    url: "https://frontendtops.dannyisadog.com",
+    title: "Frontend Tops",
+    description:
+      "Frontend Tops is a list of the top frontend repositories on GitHub.",
+    siteName: "Frontend Tops",
+    images: [
+      {
+        url: "https://frontendtops.dannyisadog.com/favicon.ico",
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -20,11 +47,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = process.env.GAID as string;
   return (
     <html lang="en">
       <body className={poppins.className}>{children}</body>
       <Analytics />
       <SpeedInsights />
+      <GoogleAnalytics gaId={gaId} />
     </html>
   );
 }
